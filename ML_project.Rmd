@@ -99,6 +99,9 @@ library(ggplot2)
 library(caret)   
 library(vip) 
 library(corrplot)
+library(jtools)
+library(huxtable)
+library(ranger) 
 ```
 
 ```{r}
@@ -115,12 +118,13 @@ heart_d <- subset(heart_d, select = -c (patient_id, thal))
 
 # Introduction
 
-The following paper is a comparison between two Machine Learning algorithmns, namely Random Forests and Support Vector Machines, as prediction tools. 
+The following paper is a comparison between two Machine Learning algorithms, namely Random Forests and Support Vector Machines, as prediction tools. Using a Linear Regression model as a baseline, the RMSE scores are compared.
 
 # Research Question
 
 # Data and Methodology 
 
+The data used in this investigation is heart disease data from Kaggle. 
 
 # Results 
 
@@ -130,11 +134,15 @@ The following paper is a comparison between two Machine Learning algorithmns, na
 heart_d$heart_disease_present = as.numeric(heart_d$heart_disease_present)
 
 LRM <- lm(heart_disease_present ~ ., data = heart_d)
+
+summary(LRM)
 sigma(LRM)
 ```
 
 
 ## Random Forests 
+
+
 
 ```{r}
 # Look at data categorically
@@ -149,7 +157,29 @@ test_1  <- heart_d[-index_1, ]
 
 
 ```{r}
-# Generating RF Model
+# Generating model (textbook)
+# number of features
+n_features <- length(setdiff(names(heart_d), "heart_disease_present"))
+
+# train a default random forest model
+heart_d_rf1 <- ranger(
+  heart_disease_present ~ ., 
+  data = train_1,
+  mtry = floor(n_features / 3),
+  respect.unordered.factors = "order",
+  seed = 123
+)
+
+# get OOB RMSE
+(default_rmse <- sqrt(heart_d_rf1$prediction.error))
+```
+
+
+
+
+
+```{r}
+# Generating RF Model (internet)
 RFM = randomForest(heart_disease_present~., data = train_1)
 ```
 
@@ -173,6 +203,11 @@ Classification_Accuracy
 ```
 
 ## Support Vector Machine
+
+```{r}
+heart_d$heart_disease_present = as.numeric(heart_d$heart_disease_present)
+```
+
 
 # Conclusion 
 

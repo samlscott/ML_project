@@ -1,16 +1,16 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.29)  4 JUL 2022 20:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.4)  4 JUL 2022 21:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **ML_project.tex
 (./ML_project.tex
-LaTeX2e <2022-06-01> patch level 3
-L3 programming layer <2022-06-16> (/Users/samanthascott/Library/TinyTeX/texmf-dist/tex/latex/elsarticle/elsarticle.cls
+LaTeX2e <2022-06-01> patch level 4
+L3 programming layer <2022-07-01> (/Users/samanthascott/Library/TinyTeX/texmf-dist/tex/latex/elsarticle/elsarticle.cls
 Document Class: elsarticle 2020/11/20, 3.3: Elsevier Ltd
 (/Users/samanthascott/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2022-06-16 L3 programming layer (loader) 
+Package: expl3 2022-07-01 L3 programming layer (loader) 
 (/Users/samanthascott/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count185
 \l__pdf_internal_box=\box51
 )) (/Users/samanthascott/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
@@ -638,6 +638,14 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \openout5 = `ML_project.toc'.
 
 [2]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[3]
 No file ML_project.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -646,23 +654,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[3] (./ML_project.aux)
+[4] (./ML_project.aux)
 Package rerunfilecheck Info: File `ML_project.out' has not changed.
 (rerunfilecheck)             Checksum: 27CE8F43D926B5FADDCD36C9065CCC60;1118.
  ) 
 Here is how much of TeX's memory you used:
- 16192 strings out of 479997
- 302515 string characters out of 5886942
- 563779 words of memory out of 5000000
- 34099 multiletter control sequences out of 15000+600000
+ 16193 strings out of 479996
+ 302521 string characters out of 5886923
+ 569825 words of memory out of 5000000
+ 34100 multiletter control sequences out of 15000+600000
  521221 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,77p,274b,880s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,77p,274b,1025s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb>
-Output written on ML_project.pdf (3 pages, 214875 bytes).
+Output written on ML_project.pdf (4 pages, 225662 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 139 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
+ 25 named destinations out of 1000 (max. 500000)
  73 words of extra memory for PDF output out of 10000 (max. 10000000)
 
