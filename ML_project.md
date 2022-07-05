@@ -78,6 +78,30 @@ editor_options:
 
 
 
+```
+## Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor         13
+## 
+## Operations:
+## 
+## Dummy variables from all_nominal()
+```
+
+
+
+```
+## 
+##         0         1 
+## 0.5555556 0.4444444
+```
+
+
+
 
 # Introduction
 
@@ -85,11 +109,17 @@ The following paper is a comparison between two Machine Learning algorithms, nam
 
 # Research Question
 
+Problem type: supervised binomial classification 
+
+"Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the no free lunch theorem for ML (Wolpert 1996). Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging.1"
+
+"RMSE: Root mean squared error. This simply takes the square root of the MSE metric  so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. Objective: minimize"
+
 # Data and Methodology 
 
 The data used in this investigation is heart disease data from Kaggle. 
 
-# Results 
+# Results and Discussion
 
 ## Linear Regression
 
@@ -101,73 +131,48 @@ The data used in this investigation is heart disease data from Kaggle.
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.81385 -0.23535 -0.07213  0.25418  0.90884 
+## -0.87287 -0.22568 -0.04891  0.20849  0.93636 
 ## 
 ## Coefficients:
 ##                                        Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)                          -0.3435048  0.4431192  -0.775 0.439319    
-## slope_of_peak_exercise_st_segment     0.0995764  0.0609650   1.633 0.104282    
-## resting_blood_pressure                0.0008023  0.0017905   0.448 0.654683    
-## chest_pain_type                       0.1120314  0.0329010   3.405 0.000828 ***
-## num_major_vessels                     0.1438576  0.0328175   4.384 2.06e-05 ***
-## fasting_blood_sugar_gt_120_mg_per_dl -0.0479164  0.0801823  -0.598 0.550921    
-## resting_ekg_results                   0.0244777  0.0286543   0.854 0.394196    
-## serum_cholesterol_mg_per_dl           0.0005870  0.0005571   1.054 0.293524    
-## oldpeak_eq_st_depression              0.0616716  0.0334386   1.844 0.066907 .  
-## sex                                   0.2413338  0.0638961   3.777 0.000220 ***
-## age                                  -0.0028883  0.0036829  -0.784 0.434008    
-## max_heart_rate_achieved              -0.0014835  0.0016266  -0.912 0.363063    
-## exercise_induced_angina               0.1960958  0.0695805   2.818 0.005412 ** 
+## (Intercept)                          -0.1608082  0.4533297  -0.355  0.72325    
+## slope_of_peak_exercise_st_segment     0.0830549  0.0594343   1.397  0.16416    
+## thalnormal                           -0.0801911  0.1419747  -0.565  0.57296    
+## thalreversible_defect                 0.1745812  0.1394239   1.252  0.21228    
+## resting_blood_pressure                0.0006047  0.0017496   0.346  0.73005    
+## chest_pain_type                       0.0885153  0.0324033   2.732  0.00699 ** 
+## num_major_vessels                     0.1346337  0.0318310   4.230 3.87e-05 ***
+## fasting_blood_sugar_gt_120_mg_per_dl -0.0414389  0.0778126  -0.533  0.59506    
+## resting_ekg_results                   0.0378482  0.0279049   1.356  0.17685    
+## serum_cholesterol_mg_per_dl           0.0004803  0.0005405   0.889  0.37551    
+## oldpeak_eq_st_depression              0.0421798  0.0327468   1.288  0.19953    
+## sex                                   0.1591962  0.0667508   2.385  0.01822 *  
+## age                                  -0.0024920  0.0035588  -0.700  0.48476    
+## max_heart_rate_achieved              -0.0014613  0.0015861  -0.921  0.35825    
+## exercise_induced_angina               0.1458715  0.0688974   2.117  0.03574 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.3685 on 167 degrees of freedom
-## Multiple R-squared:  0.4899,	Adjusted R-squared:  0.4532 
-## F-statistic: 13.36 on 12 and 167 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.3559 on 165 degrees of freedom
+## Multiple R-squared:  0.5298,	Adjusted R-squared:   0.49 
+## F-statistic: 13.28 on 14 and 165 DF,  p-value: < 2.2e-16
 ```
 
 ```
-## [1] 0.3684575
+## [1] 0.3558662
 ```
 
-
+![](ML_project_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
+ 
 ## Random Forests 
 
 
-
-
-
-
-
 ```
-## [1] 0.4178554
+## [1] 0.3391407
 ```
 
-
-
-
-
-
-
-
-
-
-
-```
-##    
-##      0  1
-##   0 16  8
-##   1  7 23
-```
-
-
-```
-## [1] 0.7222222
-```
 
 ## Support Vector Machine
-
-
 
 
 # Conclusion 

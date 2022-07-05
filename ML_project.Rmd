@@ -102,6 +102,10 @@ library(corrplot)
 library(jtools)
 library(huxtable)
 library(ranger) 
+library(rsample)
+library(visdat)  
+library(recipes) 
+library(ggpubr)
 ```
 
 ```{r}
@@ -111,43 +115,22 @@ values <- read_csv("/Users/samanthascott/Desktop/ML_project/ML_data/heart_pred/v
 
 heart_d <- merge(labels, values, by = "patient_id")
 
-heart_d <- subset(heart_d, select = -c (patient_id, thal))
+heart_d <- subset(heart_d, select = -c (patient_id))
+```
+
+```{r}
+recipe(heart_disease_present ~ ., data = heart_d) %>%
+  step_dummy(all_nominal(), one_hot = TRUE)
 ```
 
 
-
-# Introduction
-
-The following paper is a comparison between two Machine Learning algorithms, namely Random Forests and Support Vector Machines, as prediction tools. Using a Linear Regression model as a baseline, the RMSE scores are compared.
-
-# Research Question
-
-# Data and Methodology 
-
-The data used in this investigation is heart disease data from Kaggle. 
-
-# Results 
-
-## Linear Regression
-
 ```{r}
-heart_d$heart_disease_present = as.numeric(heart_d$heart_disease_present)
-
-LRM <- lm(heart_disease_present ~ ., data = heart_d)
-
-summary(LRM)
-sigma(LRM)
+# response distribution -> even enough, can use simple random sampling
+table(heart_d$heart_disease_present) %>% prop.table()
 ```
 
 
-## Random Forests 
-
-
-
 ```{r}
-# Look at data categorically
-heart_d$heart_disease_present = as.factor(heart_d$heart_disease_present)
-
 # Split data into Training and Testing
 set.seed(123) 
 index_1 <- sample(1:nrow(heart_d), round(nrow(heart_d) * 0.7))
@@ -155,11 +138,48 @@ train_1 <- heart_d[index_1, ]
 test_1  <- heart_d[-index_1, ]
 ```
 
+# Introduction
+
+The following paper is a comparison between two Machine Learning algorithms, namely Random Forests and Support Vector Machines, as prediction tools. Using a Linear Regression model as a baseline, the RMSE scores are compared.
+
+# Research Question
+
+Problem type: supervised binomial classification 
+
+"Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the no free lunch theorem for ML (Wolpert 1996). Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging.1"
+
+"RMSE: Root mean squared error. This simply takes the square root of the MSE metric  so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. Objective: minimize"
+
+# Data and Methodology 
+
+The data used in this investigation is heart disease data from Kaggle. 
+
+# Results and Discussion
+
+## Linear Regression
+
+```{r}
+# Generating LRM 
+LRM <- lm(heart_disease_present ~ ., data = heart_d)
+
+summary(LRM)
+sigma(LRM)
+```
+
+```{r}
+ggscatter(heart_d, x = "age", y = "heart_disease_present", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Age", ylab = "Heart Disease")
+```
+ 
+## Random Forests 
 
 ```{r}
 # Generating model (textbook)
 # number of features
 n_features <- length(setdiff(names(heart_d), "heart_disease_present"))
+
 
 # train a default random forest model
 heart_d_rf1 <- ranger(
@@ -175,38 +195,7 @@ heart_d_rf1 <- ranger(
 ```
 
 
-
-
-
-```{r}
-# Generating RF Model (internet)
-RFM = randomForest(heart_disease_present~., data = train_1)
-```
-
-```{r}
-# Evaluate model accuracy
-Heart_pred = predict(RFM, test_1)
-test_1$Heart_pred = Heart_pred
-```
-
-
-```{r}
-# Build confusion matrix
-CFM = table(test_1$heart_disease_present, test_1$Heart_pred)
-CFM
-```
-
-```{r}
-# Accuracy of the model
-Classification_Accuracy = sum(diag(CFM)/sum(CFM))
-Classification_Accuracy
-```
-
 ## Support Vector Machine
-
-```{r}
-heart_d$heart_disease_present = as.numeric(heart_d$heart_disease_present)
-```
 
 
 # Conclusion 

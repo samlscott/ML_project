@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.4)  4 JUL 2022 21:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.4)  5 JUL 2022 13:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -646,6 +646,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [3]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[4]
+<ML_project_files/figure-latex/unnamed-chunk-7-1.pdf, id=83, 423.5825pt x 350.30875pt>
+File: ML_project_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 330.
+(pdftex.def)             Requested size: 423.58147pt x 350.30789pt.
 No file ML_project.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -654,23 +667,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4] (./ML_project.aux)
+[5 <./ML_project_files/figure-latex/unnamed-chunk-7-1.pdf>] (./ML_project.aux)
 Package rerunfilecheck Info: File `ML_project.out' has not changed.
-(rerunfilecheck)             Checksum: 27CE8F43D926B5FADDCD36C9065CCC60;1118.
+(rerunfilecheck)             Checksum: FA56C16FC870EBEA3AC938A97D312EC9;1199.
  ) 
 Here is how much of TeX's memory you used:
- 16193 strings out of 479996
- 302521 string characters out of 5886923
- 569825 words of memory out of 5000000
- 34100 multiletter control sequences out of 15000+600000
+ 16202 strings out of 479996
+ 302969 string characters out of 5886923
+ 572840 words of memory out of 5000000
+ 34106 multiletter control sequences out of 15000+600000
  521221 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,77p,274b,1025s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,77p,274b,1024s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb>
-Output written on ML_project.pdf (4 pages, 225662 bytes).
+Output written on ML_project.pdf (5 pages, 241213 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
- 25 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 156 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
+ 78 words of extra memory for PDF output out of 10000 (max. 10000000)
 
