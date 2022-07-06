@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.4)  5 JUL 2022 13:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.4)  6 JUL 2022 14:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -638,6 +638,10 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \openout5 = `ML_project.toc'.
 
 [2]
+Overfull \hbox (16.72766pt too wide) in paragraph at lines 295--295
+[]\T1/lmtt/m/n/10.95 ##  randomForest(formula = heart_disease_present ~ ., data = train_1,      ntree = 500)[] 
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -646,6 +650,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [3]
+<ML_project_files/figure-latex/unnamed-chunk-5-1.pdf, id=79, 400.49625pt x 319.1925pt>
+File: ML_project_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 297.
+(pdftex.def)             Requested size: 400.49527pt x 319.19171pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -653,12 +662,87 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4]
-<ML_project_files/figure-latex/unnamed-chunk-7-1.pdf, id=83, 423.5825pt x 350.30875pt>
+[4 <./ML_project_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<ML_project_files/figure-latex/unnamed-chunk-7-1.pdf, id=92, 400.49625pt x 285.065pt>
 File: ML_project_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use ML_project_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 330.
-(pdftex.def)             Requested size: 423.58147pt x 350.30789pt.
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 313.
+(pdftex.def)             Requested size: 400.49527pt x 285.0643pt.
+
+Overfull \hbox (212.1846pt too wide) in paragraph at lines 339--339
+[]\T1/lmtt/m/n/10.95 ##  randomForest(formula = heart_disease_present ~ ., data = train_1,      mtry = best.m, ntree = 601, importance = TRUE)[] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[5 <./ML_project_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<ML_project_files/figure-latex/unnamed-chunk-10-1.pdf, id=104, 400.49625pt x 319.1925pt>
+File: ML_project_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 341.
+(pdftex.def)             Requested size: 400.49527pt x 319.19171pt.
+<ML_project_files/figure-latex/unnamed-chunk-12-1.pdf, id=105, 326.21875pt x 263.98625pt>
+File: ML_project_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 343.
+(pdftex.def)             Requested size: 326.21794pt x 263.9856pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[6 <./ML_project_files/figure-latex/unnamed-chunk-10-1.pdf>]
+<ML_project_files/figure-latex/unnamed-chunk-15-1.pdf, id=118, 326.21875pt x 263.98625pt>
+File: ML_project_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-15-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-15-1.pdf  used on input line 349.
+(pdftex.def)             Requested size: 326.21794pt x 263.9856pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[7 <./ML_project_files/figure-latex/unnamed-chunk-12-1.pdf> <./ML_project_files/figure-latex/unnamed-chunk-15-1.pdf>]
+<ML_project_files/figure-latex/unnamed-chunk-17-1.pdf, id=140, 400.49625pt x 321.2pt>
+File: ML_project_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-17-1.pdf  used on input line 355.
+(pdftex.def)             Requested size: 400.49527pt x 321.19922pt.
+<ML_project_files/figure-latex/unnamed-chunk-19-1.pdf, id=141, 423.5825pt x 349.305pt>
+File: ML_project_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-19-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-19-1.pdf  used on input line 360.
+(pdftex.def)             Requested size: 423.58147pt x 349.30414pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[8 <./ML_project_files/figure-latex/unnamed-chunk-17-1.pdf>]
+<ML_project_files/figure-latex/unnamed-chunk-21-1.pdf, id=156, 326.21875pt x 263.98625pt>
+File: ML_project_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
+<use ML_project_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: ML_project_files/figure-latex/unnamed-chunk-21-1.pdf  used on input line 362.
+(pdftex.def)             Requested size: 326.21794pt x 263.9856pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[9 <./ML_project_files/figure-latex/unnamed-chunk-19-1.pdf>]
 No file ML_project.bbl.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -667,23 +751,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[5 <./ML_project_files/figure-latex/unnamed-chunk-7-1.pdf>] (./ML_project.aux)
+[10 <./ML_project_files/figure-latex/unnamed-chunk-21-1.pdf>] (./ML_project.aux)
 Package rerunfilecheck Info: File `ML_project.out' has not changed.
-(rerunfilecheck)             Checksum: FA56C16FC870EBEA3AC938A97D312EC9;1199.
+(rerunfilecheck)             Checksum: 81FA5B232A33244812AD96F60B87C4F8;1137.
  ) 
 Here is how much of TeX's memory you used:
- 16202 strings out of 479996
- 302969 string characters out of 5886923
- 572840 words of memory out of 5000000
- 34106 multiletter control sequences out of 15000+600000
+ 16256 strings out of 479996
+ 305688 string characters out of 5886923
+ 565829 words of memory out of 5000000
+ 34148 multiletter control sequences out of 15000+600000
  521221 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,77p,274b,1024s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,12n,77p,274b,1028s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/samanthascott/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb>
-Output written on ML_project.pdf (5 pages, 241213 bytes).
+Output written on ML_project.pdf (10 pages, 278942 bytes).
 PDF statistics:
- 156 PDF objects out of 1000 (max. 8388607)
- 124 compressed objects within 2 object streams
- 26 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 236 PDF objects out of 1000 (max. 8388607)
+ 178 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

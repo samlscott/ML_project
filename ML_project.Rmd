@@ -101,11 +101,12 @@ library(vip)
 library(corrplot)
 library(jtools)
 library(huxtable)
-library(ranger) 
 library(rsample)
 library(visdat)  
 library(recipes) 
 library(ggpubr)
+library(kernlab)
+library(varImp)
 ```
 
 ```{r}
@@ -119,16 +120,9 @@ heart_d <- subset(heart_d, select = -c (patient_id))
 ```
 
 ```{r}
-recipe(heart_disease_present ~ ., data = heart_d) %>%
-  step_dummy(all_nominal(), one_hot = TRUE)
+# for internet method - RFM
+heart_d$heart_disease_present = as.factor(heart_d$heart_disease_present)
 ```
-
-
-```{r}
-# response distribution -> even enough, can use simple random sampling
-table(heart_d$heart_disease_present) %>% prop.table()
-```
-
 
 ```{r}
 # Split data into Training and Testing
@@ -154,50 +148,148 @@ Problem type: supervised binomial classification
 
 The data used in this investigation is heart disease data from Kaggle. 
 
+"Support vector machines (SVMs) offer a direct approach to binary classification: try to find a hyperplane in some feature space that “best” separates the two classes. In practice, however, it is difficult (if not impossible) to find a hyperplane to perfectly separate the classes using just the original features. SVMs overcome this by extending the idea of finding a separating hyperplane in two ways: (1) loosen what we mean by “perfectly separates”, and (2) use the so-called kernel trick to enlarge the feature space to the point that perfect separation of classes is (more) likely."
+
 # Results and Discussion
 
-## Linear Regression
-
-```{r}
-# Generating LRM 
-LRM <- lm(heart_disease_present ~ ., data = heart_d)
-
-summary(LRM)
-sigma(LRM)
-```
-
-```{r}
-ggscatter(heart_d, x = "age", y = "heart_disease_present", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Age", ylab = "Heart Disease")
-```
- 
 ## Random Forests 
 
 ```{r}
-# Generating model (textbook)
-# number of features
-n_features <- length(setdiff(names(heart_d), "heart_disease_present"))
+# Generating RF Model (internet)
 
-
-# train a default random forest model
-heart_d_rf1 <- ranger(
-  heart_disease_present ~ ., 
-  data = train_1,
-  mtry = floor(n_features / 3),
-  respect.unordered.factors = "order",
-  seed = 123
-)
-
-# get OOB RMSE
-(default_rmse <- sqrt(heart_d_rf1$prediction.error))
+RFM = randomForest(heart_disease_present~., data = train_1, ntree=500)
+print(RFM)
+plot(RFM)
 ```
 
 
+```{r}
+floor(sqrt(ncol(train_1) - 1))
+```
+
+```{r}
+mtry <- tuneRF(train_1[-1],train_1$heart_disease_present, ntreeTry=500,
+               stepFactor=1.5,improve=0.01, trace=TRUE, plot=TRUE)
+```
+
+```{r}
+best.m <- mtry[mtry[, 2] == min(mtry[, 2]), 1]
+```
+
+```{r}
+print(mtry)
+print(best.m)
+```
+
+```{r}
+RFM1 = randomForest(heart_disease_present~., data = train_1, mtry=best.m, ntree=601, importance=TRUE)
+print(RFM1)
+plot(RFM1)
+```
+
+
+```{r}
+# Evaluate model accuracy
+Heart_pred = predict(RFM, test_1)
+test_1$Heart_pred = Heart_pred
+```
+
+```{r}
+# Build confusion matrix
+CFM = table(test_1$heart_disease_present, test_1$Heart_pred)
+plot(CFM)
+```
+
+```{r}
+# Accuracy of the model
+Classification_Accuracy = sum(diag(CFM)/sum(CFM))
+Classification_Accuracy
+```
+ 
+
+```{r}
+# Evaluate model accuracy
+Heart_pred = predict(RFM1, test_1)
+test_1$Heart_pred = Heart_pred
+```
+
+```{r}
+# Build confusion matrix
+CFM1 = table(test_1$heart_disease_present, test_1$Heart_pred)
+plot(CFM1)
+```
+
+```{r}
+# Accuracy of the model
+Classification_Accuracy = sum(diag(CFM)/sum(CFM))
+Classification_Accuracy
+```
+
+```{r}
+pred1=predict(RFM,type = "prob")
+library(ROCR)
+perf = prediction(pred1[,2], train_1$heart_disease_present)
+# 1. Area under curve
+auc = performance(perf, "auc")
+# 2. True Positive and Negative Rate
+pred3 = performance(perf, "tpr","fpr")
+# 3. Plot the ROC curve
+plot(pred3,main="ROC Curve for Random Forest",col=2,lwd=2)
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+```
+
 ## Support Vector Machine
+
+```{r}
+# Tune an SVM with radial basis kernel
+set.seed(1854)  # for reproducibility
+churn_svm <- train(
+    heart_disease_present ~ ., 
+    data = train_1,
+    method = "svmRadial",               
+    preProcess = c("center", "scale"),  
+    trControl = trainControl(method = "cv", number = 10),
+    tuneLength = 10
+)
+```
+
+```{r}
+# Plot results
+ggplot(churn_svm) + theme_light()
+#churn_svm$results
+```
+
+
+```{r}
+# Evaluate model accuracy
+Heart_pred = predict(churn_svm, test_1)
+test_1$Heart_pred = Heart_pred
+```
+
+```{r}
+# Build confusion matrix
+CFMsvm = table(test_1$heart_disease_present, test_1$Heart_pred)
+plot(CFMsvm)
+```
+
+```{r}
+# Accuracy of the model
+Classification_Accuracy = sum(diag(CFMsvm)/sum(CFMsvm))
+Classification_Accuracy
+```
+
+
+
+
 
 
 # Conclusion 
 
 # Reference List 
+
+# Appendix 
+
+```{r}
+# response distribution -> even enough, can use simple random sampling
+table(heart_d$heart_disease_present) %>% prop.table()
+```

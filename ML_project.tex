@@ -230,26 +230,6 @@ Machine Learning \sep Heart Disease Prediction \sep Random Forests \\
 
 
 
-\begin{verbatim}
-## Recipe
-## 
-## Inputs:
-## 
-##       role #variables
-##    outcome          1
-##  predictor         13
-## 
-## Operations:
-## 
-## Dummy variables from all_nominal()
-\end{verbatim}
-
-\begin{verbatim}
-## 
-##         0         1 
-## 0.5555556 0.4444444
-\end{verbatim}
-
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
@@ -283,67 +263,122 @@ minimize''
 
 The data used in this investigation is heart disease data from Kaggle.
 
+``Support vector machines (SVMs) offer a direct approach to binary
+classification: try to find a hyperplane in some feature space that
+``best'' separates the two classes. In practice, however, it is
+difficult (if not impossible) to find a hyperplane to perfectly separate
+the classes using just the original features. SVMs overcome this by
+extending the idea of finding a separating hyperplane in two ways: (1)
+loosen what we mean by ``perfectly separates'', and (2) use the
+so-called kernel trick to enlarge the feature space to the point that
+perfect separation of classes is (more) likely.''
+
 \hypertarget{results-and-discussion}{%
 \section{Results and Discussion}\label{results-and-discussion}}
-
-\hypertarget{linear-regression}{%
-\subsection{Linear Regression}\label{linear-regression}}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = heart_disease_present ~ ., data = heart_d)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.87287 -0.22568 -0.04891  0.20849  0.93636 
-## 
-## Coefficients:
-##                                        Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)                          -0.1608082  0.4533297  -0.355  0.72325    
-## slope_of_peak_exercise_st_segment     0.0830549  0.0594343   1.397  0.16416    
-## thalnormal                           -0.0801911  0.1419747  -0.565  0.57296    
-## thalreversible_defect                 0.1745812  0.1394239   1.252  0.21228    
-## resting_blood_pressure                0.0006047  0.0017496   0.346  0.73005    
-## chest_pain_type                       0.0885153  0.0324033   2.732  0.00699 ** 
-## num_major_vessels                     0.1346337  0.0318310   4.230 3.87e-05 ***
-## fasting_blood_sugar_gt_120_mg_per_dl -0.0414389  0.0778126  -0.533  0.59506    
-## resting_ekg_results                   0.0378482  0.0279049   1.356  0.17685    
-## serum_cholesterol_mg_per_dl           0.0004803  0.0005405   0.889  0.37551    
-## oldpeak_eq_st_depression              0.0421798  0.0327468   1.288  0.19953    
-## sex                                   0.1591962  0.0667508   2.385  0.01822 *  
-## age                                  -0.0024920  0.0035588  -0.700  0.48476    
-## max_heart_rate_achieved              -0.0014613  0.0015861  -0.921  0.35825    
-## exercise_induced_angina               0.1458715  0.0688974   2.117  0.03574 *  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.3559 on 165 degrees of freedom
-## Multiple R-squared:  0.5298, Adjusted R-squared:   0.49 
-## F-statistic: 13.28 on 14 and 165 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{verbatim}
-## [1] 0.3558662
-\end{verbatim}
-
-\includegraphics{ML_project_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \hypertarget{random-forests}{%
 \subsection{Random Forests}\label{random-forests}}
 
 \begin{verbatim}
-## [1] 0.3391407
+## 
+## Call:
+##  randomForest(formula = heart_disease_present ~ ., data = train_1,      ntree = 500) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 3
+## 
+##         OOB estimate of  error rate: 12.7%
+## Confusion matrix:
+##    0  1 class.error
+## 0 70  6  0.07894737
+## 1 10 40  0.20000000
 \end{verbatim}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{verbatim}
+## mtry = 3  OOB error = 11.11% 
+## Searching left ...
+## mtry = 2     OOB error = 9.52% 
+## 0.1428571 0.01 
+## Searching right ...
+## mtry = 4     OOB error = 13.49% 
+## -0.4166667 0.01
+\end{verbatim}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{verbatim}
+##       mtry  OOBError
+## 2.OOB    2 0.0952381
+## 3.OOB    3 0.1111111
+## 4.OOB    4 0.1349206
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+##  randomForest(formula = heart_disease_present ~ ., data = train_1,      mtry = best.m, ntree = 601, importance = TRUE) 
+##                Type of random forest: classification
+##                      Number of trees: 601
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 11.9%
+## Confusion matrix:
+##    0  1 class.error
+## 0 71  5  0.06578947
+## 1 10 40  0.20000000
+\end{verbatim}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{verbatim}
+## [1] 0.7407407
+\end{verbatim}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{verbatim}
+## [1] 0.7407407
+\end{verbatim}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \hypertarget{support-vector-machine}{%
 \subsection{Support Vector Machine}\label{support-vector-machine}}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\includegraphics{ML_project_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{verbatim}
+## [1] 0.7777778
+\end{verbatim}
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
 \hypertarget{reference-list}{%
 \section{Reference List}\label{reference-list}}
+
+\hypertarget{appendix}{%
+\section{Appendix}\label{appendix}}
+
+\begin{verbatim}
+## 
+##         0         1 
+## 0.5555556 0.4444444
+\end{verbatim}
 
 \bibliography{Tex/ref}
 
