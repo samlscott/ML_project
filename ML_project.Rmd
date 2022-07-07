@@ -56,8 +56,8 @@ output:
     keep_tex: TRUE
     keep_md: TRUE
     template: Tex/TexDefault.txt
-    fig_width: 3.5 # Adjust default figure sizes. This can also be done in the chunks of the text.
-    fig_height: 3.5
+    fig_width: 2 # Adjust default figure sizes. This can also be done in the chunks of the text.
+    fig_height: 2
 
 #abstract: |
   #Abstract to be written here. The abstract should not be too long and should provide the reader with a good understanding what you are writing about. Academic papers are not like novels where you keep the reader in suspense. To be effective in getting others to read your paper, be as open and concise about your findings here as possible. Ideally, upon reading your abstract, the reader should feel he / she must read your paper in entirety.
@@ -107,9 +107,12 @@ library(recipes)
 library(ggpubr)
 library(kernlab)
 library(varImp)
+library(ranger)
 ```
 
+
 ```{r}
+set.seed(123)
 # Loading data
 labels <- read_csv("/Users/samanthascott/Desktop/ML_project/ML_data/heart_pred/labels.csv")
 values <- read_csv("/Users/samanthascott/Desktop/ML_project/ML_data/heart_pred/values.csv")
@@ -117,6 +120,8 @@ values <- read_csv("/Users/samanthascott/Desktop/ML_project/ML_data/heart_pred/v
 heart_d <- merge(labels, values, by = "patient_id")
 
 heart_d <- subset(heart_d, select = -c (patient_id))
+
+heart_d1 <- subset(heart_d, select = -c (fasting_blood_sugar_gt_120_mg_per_dl, resting_ekg_results, resting_blood_pressure)) 
 ```
 
 ```{r}
@@ -125,105 +130,109 @@ heart_d$heart_disease_present = as.factor(heart_d$heart_disease_present)
 ```
 
 ```{r}
+# for internet method - RFM
+heart_d1$heart_disease_present = as.factor(heart_d1$heart_disease_present)
+```
+
+```{r}
 # Split data into Training and Testing
-set.seed(123) 
+#set.seed(123) 
 index_1 <- sample(1:nrow(heart_d), round(nrow(heart_d) * 0.7))
 train_1 <- heart_d[index_1, ]
 test_1  <- heart_d[-index_1, ]
 ```
 
+```{r}
+# Split data into Training and Testing
+#set.seed(123) 
+index_2 <- sample(1:nrow(heart_d1), round(nrow(heart_d1) * 0.7))
+train_2 <- heart_d1[index_2, ]
+test_2  <- heart_d1[-index_2, ]
+```
+
 # Introduction
 
-The following paper is a comparison between two Machine Learning algorithms, namely Random Forests and Support Vector Machines, as prediction tools. Using a Linear Regression model as a baseline, the RMSE scores are compared.
+As Boehmke and  Greenwell (2020) state, the Machine Learning process is very iterative and heuristic-based. It is difficult to establish which Machine Learnign method with perform best as a predictive tool, with minimal knowledge of the problem or data at hand. This dilemma is known as the no free lunch theorem. The aim of this paper is to predict heart disease amongst patients, using be the performing predictive tool.
 
-# Research Question
+The investigation consists of a comparison between two Machine Learning algorithms, namely Random Forests and Support Vector Machines, as prediction tools. In order to assess the predictive powers of the aforementioned methods, data on possible heart disease patients is used. The process of using Machine Learning algorithms to predict heart disease amongst patients has been broadly explored. This investigation serves to contribute to this body of literature by comparing two predominant Machine Learning algorithms. Ultimately, the results of this paper indicate that both Random Forests as well as Support Vector Machines showcase strong predictive powers, with a classification accuracy of above 70%. Further, the models do not gain predictive power once being fine tuned, indicating that the basic model is sufficient enough, given the data and problem.
+ 
+The paper is structured as follows: section 2 provides an overview of the research question as well the data used to solve the problem at hand, section 3 provides information on the the methodology followed when generating the Random Forest and Support Vector Machine models, section 4 presents and discusses the results of the models, section 5 highlights the robustness checks implemented to verify the outcomes of the models, and lastly, section 6 contains the concluding remarks of the paper. 
 
-Problem type: supervised binomial classification 
+# Research Question and Data
 
-"Much like EDA, the ML process is very iterative and heurstic-based. With minimal knowledge of the problem or data at hand, it is difficult to know which ML method will perform best. This is known as the no free lunch theorem for ML (Wolpert 1996). Consequently, it is common for many ML approaches to be applied, evaluated, and modified before a final, optimal model can be determined. Performing this process correctly provides great confidence in our outcomes. If not, the results will be useless and, potentially, damaging.1"
+The main goal of the Machine Learning process is to find an algoritmn that most accurately predicts future values based on a set of features.
+This paper aims to establish which Machine Leaning algorithm performs best when predicting whether a patient has heart disease, or not. The problem at hand is expressed as a supervised binomial classification problem. The data used in this investigation is heart disease data from Kaggle and contains 180 observations. Kaggle is an online platform where data scientists and machine learning practitioners can access datasets as well as build portfolios. The benefit of obtaining data from this source, is the usability score assigned to the dataset. This particular dataset is assinged a higher usability score.
 
-"RMSE: Root mean squared error. This simply takes the square root of the MSE metric  so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. Objective: minimize"
+The data used contains a number of health related indicators. For this investigation, the dependent variable is the presence of heart disease in a patient. This variable is a binomial, yes or no, variable. Using other indicators, such as age, whether a patient has a blood disorder called thalassemia as well as the type of chest pain a patient is experiencing, models are generated to predict if the patient has heart disease. 
 
-# Data and Methodology 
+# Methodology 
 
-The data used in this investigation is heart disease data from Kaggle. 
+For this investigation, code written in R is used. From this code, two Machine Learning algorithms are applied to the data. The first, a Random Forest (RF) and the second, a Support Vector Machine (SVM). To conduct these methods, the data is split into training and testing data. The ratio used is 70:30, respectively. This means that 70% of the data is used for training and the remaining 30% is for testing the model. The data is split using base R and the simple random sample method. This method is used as the responses do not vary much, with a ratio of 5.6 to 4.4. The training data is used to develop feature sets, train our algorithmns, tune hyperparameters, compare models etc. The test data is used to estimate an unbiased assessment of the model's performance. For this paper, the classification accuracy between the models is compared. The classification accuracy measures the number of correct predictions made, divided by the total number of predictions made. This evaluation method is the most popular one for classification problems. 
 
-"Support vector machines (SVMs) offer a direct approach to binary classification: try to find a hyperplane in some feature space that “best” separates the two classes. In practice, however, it is difficult (if not impossible) to find a hyperplane to perfectly separate the classes using just the original features. SVMs overcome this by extending the idea of finding a separating hyperplane in two ways: (1) loosen what we mean by “perfectly separates”, and (2) use the so-called kernel trick to enlarge the feature space to the point that perfect separation of classes is (more) likely."
+## Random Forests
 
+The Random Forest algorithmn is a modification of the bagged decision trees, which express better predictive performance. Using the randomForest package, a Random Forest model (RFM 1) is generated using the training data. Using the testing data, a condusion matirx is presented. Although a Random Forest performs well, there are tunable hyper parameters that may be implemented when tuning the model. To do this, the number of trees are adjusted, and the best $m_{try}$ value is applied to the model. The number of trees needs to be large to stabilise the error rate. According to Boehmke and Greenwell (2020), it is suggested that the model starts with 10 times the number of features, in this case, there are 13 features. However, once other hyper parameters are adjusted, more or less trees may be required. For the second Random Forest model, the number of trees is set to the default, and performs slightly better. The next hyper parameter considered is $m_{try}$. Once the best $m_{try}$ is computed, the value is inserted into the model. By doing this, the classification accuracy of the model is slightly improved, which is presented by the confusion matrix. Alternative methods of evaluating the models performance to the classification accuracy is also consulted, namely ROC curves as well as variable's importance. 
+
+\newpage
+## Support Vector Machine 
+
+Using the Caret package, a Support Vector Machine model (SVM 1) is generated. Support Vector Machines provide a direct approach to binary classification. A Support Vector Machine is a supervised Machine Learning algorithm which is used to classify data into different classes. This approach makes use of a hyperplane - which is a decision boundary between the classes. Before training the data, the traincontrol() is implemented. This allows the train() function to be used under the caret package. The list returned by the traincontrol() method is placed into the train() method. A confusion matrix is presented, depiced the accuracy of this base model. Once this is done, the model is hyper parametised by assigning values to the penalty parameter of the error term (C). This is the degree of correct classification that the algorithmn has to meet. Once again, the results are presented in the form of a confusion matrix
+
+\newpage
 # Results and Discussion
 
-## Random Forests 
+The next section of the paper presents the results of the data manipulation and methods used. The results are presented as plots and diagrams, to better illustrate the outcomes. 
+
+## Random Forests
+
+The figure below is an illustration of the first Random Forest Model (RFM 1). The number of trees selected for the first model is 130. As the graph depicts, starting with 10 times the number of features typically ensures the error estimate converges.
 
 ```{r}
-# Generating RF Model (internet)
-
-RFM = randomForest(heart_disease_present~., data = train_1, ntree=500)
-print(RFM)
-plot(RFM)
+RFM = randomForest(heart_disease_present~., data = train_1, ntree=130, importance=TRUE)
+plot(RFM, 
+     main = "RFM 1")
 ```
-
-
-```{r}
-floor(sqrt(ncol(train_1) - 1))
-```
-
-```{r}
-mtry <- tuneRF(train_1[-1],train_1$heart_disease_present, ntreeTry=500,
-               stepFactor=1.5,improve=0.01, trace=TRUE, plot=TRUE)
-```
-
-```{r}
-best.m <- mtry[mtry[, 2] == min(mtry[, 2]), 1]
-```
-
-```{r}
-print(mtry)
-print(best.m)
-```
-
-```{r}
-RFM1 = randomForest(heart_disease_present~., data = train_1, mtry=best.m, ntree=601, importance=TRUE)
-print(RFM1)
-plot(RFM1)
-```
-
+\newpage
+The figure below is a diagram of the confusion matrix for RFM 1. The graph depicts that a notable percentage of the "yes" and "no" (1 and 0, respectively) values are correctly predicted. 
 
 ```{r}
 # Evaluate model accuracy
 Heart_pred = predict(RFM, test_1)
 test_1$Heart_pred = Heart_pred
-```
 
-```{r}
-# Build confusion matrix
 CFM = table(test_1$heart_disease_present, test_1$Heart_pred)
-plot(CFM)
+fourfoldplot(CFM, color = c("coral1", "cadet blue"),
+             conf.level = 0, margin = 1, main = "Confusion Matrix: RFM 1")
 ```
+\newpage
+Below is a graphical representation of the optimal number assigned to $m_{try}$. As this is a Machine Learning algorithm, each time the code is run, a different optimal $m_{try}$ may be revealed.  
 
 ```{r}
-# Accuracy of the model
-Classification_Accuracy = sum(diag(CFM)/sum(CFM))
-Classification_Accuracy
+mtry <- tuneRF(train_1[-1],train_1$heart_disease_present, ntreeTry=500,
+               stepFactor=1.5,improve=0.01, trace=TRUE, plot=TRUE)
+
+best.m <- mtry[mtry[, 2] == min(mtry[, 2]), 1]
 ```
- 
+\newpage
+The graph below depicts the second Random Forest model, RFM 2. In this model, the number of trees in increased to the default 500 and the best $m_{try}$ value is inserted into the function. 
 
 ```{r}
-# Evaluate model accuracy
-Heart_pred = predict(RFM1, test_1)
-test_1$Heart_pred = Heart_pred
+RFM1 = randomForest(heart_disease_present~., data = train_1, mtry=best.m, ntree=500, importance=TRUE)
+plot(RFM1, main = "RFM 2")
 ```
+\newpage
+The confusion matrix of RFM 2 is depicted below. As shown in the diagram, RFM 2 performs equally as well as RFM 1. The hyper parameters did not impact the predictive power of the model. 
 
 ```{r}
-# Build confusion matrix
-CFM1 = table(test_1$heart_disease_present, test_1$Heart_pred)
-plot(CFM1)
-```
+Heart_pred1 = predict(RFM1, test_1)
+test_1$Heart_pred1 = Heart_pred1
 
-```{r}
-# Accuracy of the model
-Classification_Accuracy = sum(diag(CFM)/sum(CFM))
-Classification_Accuracy
+CFM1 = table(test_1$heart_disease_present, test_1$Heart_pred1)
+fourfoldplot(CFM1, color = c("coral1", "cadet blue"),
+             conf.level = 0, margin = 1, main = "Confusion Matrix: RFM 2")
 ```
+\newpage
+The ROC curves for the two Random Forest models are presented below. Another way to assess the strength of the Random Forest models is to compare the area under the ROC curves for each model. As the graphs depict, the area is similar, indicating similar predictive power between RFM 1 and RFM 2. The red and blue curves indicate the ROC RFM 1 and 2 respectively.
 
 ```{r}
 pred1=predict(RFM,type = "prob")
@@ -234,62 +243,216 @@ auc = performance(perf, "auc")
 # 2. True Positive and Negative Rate
 pred3 = performance(perf, "tpr","fpr")
 # 3. Plot the ROC curve
-plot(pred3,main="ROC Curve for Random Forest",col=2,lwd=2)
+#plot(pred3,main="ROC Curve: RFM 1",col=2,lwd=2)
+#abline(a=0,b=1,lwd=2,lty=2,col="gray")
+
+pred2=predict(RFM1,type = "prob")
+library(ROCR)
+perf = prediction(pred2[,2], train_1$heart_disease_present)
+# 1. Area under curve
+auc = performance(perf, "auc")
+# 2. True Positive and Negative Rate
+pred4 = performance(perf, "tpr","fpr")
+# 3. Plot the ROC curve
+plot(pred3,main="ROC Curve: RFM 1 & 2",col=2,lwd=2)
+plot(pred4, add = TRUE, main="ROC Curve: RFM 2",col=4,lwd=2)
 abline(a=0,b=1,lwd=2,lty=2,col="gray")
 ```
 
+\newpage
+The variable importance of the two Random Forest models are presented below. The mean decrease accuracy provides an estimate of the loss in prediction performance when that variable is omitted from the training dataset. For RFM 1, the variable that idicates if a patient has thalassemia is seen as the most important variable. In the variable importance graph for RFM 2, the variable indicating the chest pain type is the most important variable.
+
+```{r}
+#caret::varImp(RFM1)
+#set.seed(123)
+gvar <- as.data.frame(caret::varImp(RFM))
+gvar1 <- as.data.frame(varImpPlot(RFM,type = 1, scale = TRUE, bg = "Steel blue", lcolor = "Steel blue", main = "Variable Importance: RFM 1"))
+#varImpPlot(RFM,sort=TRUE,n.var = min(13,nrow(RFM$importance)),frame.plot = TRUE)
+#rename(gvar, MeanDecreaseAccuracy = 0)
+#gvar1[,3] <- rownames(gvar1)
+```
+
+
+```{r}
+#caret::varImp(RFM1)
+gvar. <- as.data.frame(caret::varImp(RFM1))
+gvar1. <- as.data.frame(varImpPlot(RFM1,type = 1, scale = TRUE, bg = "Steel blue", lcolor = "Steel blue", main = "Variable Importance: RFM 2"))
+#rename(gvar, MeanDecreaseAccuracy = 0)
+#gvar1.[,3] <- rownames(gvar1.)
+```
+\newpage
+Below are the graphs for a third Random Forest model (RFM 3). In this model, the bottom three variables of the variable importance plots above are omitted. As shown in the confusion matrix below, this does slightly impact the predictive power of the model. RFM 3 has the highest classification accuracy, however, the model also has the highest rmse score. The rmse score is below 0.5, showcasing that the model is still a somewhat accurate predictor. 
+
+```{r}
+RFM2 = randomForest(heart_disease_present~., data = train_2, mtry=best.m, ntree=500, importance=TRUE)
+```
+
+```{r}
+Heart_pred2 = predict(RFM2, test_2)
+test_2$Heart_pred2 = Heart_pred2
+
+CFM2 = table(test_2$heart_disease_present, test_2$Heart_pred2)
+fourfoldplot(CFM2, color = c("coral1", "cadet blue"),
+             conf.level = 0, margin = 1, main = "Confusion Matrix: RFM 3")
+```
+
+\newpage
 ## Support Vector Machine
 
+Below is the confusion matrix for the first Support Vector Machine model, SVM 1. As the figure depicts, the majority of the responses are correctly predicted. 
+
 ```{r}
-# Tune an SVM with radial basis kernel
-set.seed(1854)  # for reproducibility
-churn_svm <- train(
-    heart_disease_present ~ ., 
-    data = train_1,
-    method = "svmRadial",               
-    preProcess = c("center", "scale"),  
-    trControl = trainControl(method = "cv", number = 10),
-    tuneLength = 10
-)
+trctrl <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+
+svm_Linear <- train(heart_disease_present ~., data = train_1, method = "svmLinear",
+trControl=trctrl,
+preProcess = c("center", "scale"),
+tuneLength = 10)
 ```
 
 ```{r}
-# Plot results
-ggplot(churn_svm) + theme_light()
-#churn_svm$results
-```
-
-
-```{r}
-# Evaluate model accuracy
-Heart_pred = predict(churn_svm, test_1)
-test_1$Heart_pred = Heart_pred
+test_pred = predict(svm_Linear, test_1)
+test_1$test_pred = test_pred
 ```
 
 ```{r}
-# Build confusion matrix
-CFMsvm = table(test_1$heart_disease_present, test_1$Heart_pred)
-plot(CFMsvm)
+confusionM2 = confusionMatrix(table(test_1$test_pred, test_1$heart_disease_present))
+fourfoldplot(confusionM2$table, color = c("coral1", "cadet blue"),
+             conf.level = 0, margin = 1, main = "Confusion Matrix: SVM 1")
+```
+
+\newpage
+The graph below depicts the values assigned to the C parameter of the Support Vector Machine model, the values range from 0 to 2.5. Once this is applied to the model, there is no significant change in the classification accuracy of the model.
+
+```{r}
+grid <- expand.grid(C = c(0,0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2,5))
+svm_Linear_Grid <- train(heart_disease_present ~., data = train_1, method = "svmLinear",
+trControl=trctrl,
+preProcess = c("center", "scale"),
+tuneGrid = grid,
+tuneLength = 10)
+plot(svm_Linear_Grid, main = "SVM 2")
+```
+
+\newpage
+The figure below is the confusion matrix for the second Support Vector Machine model, SVM 2. As the graph depicts, the model has predicted a majority of the responses correctly.
+
+```{r}
+test_pred_grid = predict(svm_Linear_Grid, test_1)
+test_1$test_pred_grid = test_pred_grid
 ```
 
 ```{r}
-# Accuracy of the model
-Classification_Accuracy = sum(diag(CFMsvm)/sum(CFMsvm))
-Classification_Accuracy
+confusionMatrix = confusionMatrix(table(test_1$test_pred_grid, test_1$heart_disease_present))
+fourfoldplot(confusionMatrix$table, color = c("coral1", "cadet blue"),
+             conf.level = 0, margin = 1, main = "Confusion Matrix: SVM 2")
 ```
 
+As the results of the investigation establish, the two Machine Learning algorithms (Random Forests and Support Vector Machines) are both adequate predictive tools when attempting to depict heart disease in patients in their base form as well as after fine tuning. The classification accuracies of the algorithms remain similar to one another before and after hyper parametising. 
 
+\newpage
+# Robustness Checks
 
-
-
+Due to the similar results (namely the classification accuracy) presented by the models, an attempt to assess the validity of the models is implemented. To do this, a robustness check in which the dataset is altered, is conducted. The binomial dependent variable in the data is manually altered. Roughly, 50 values is changed. Once the changes are made, the code is run. The outcomes show a classification accuracy of around 50% for both the Random Forest and Support Vector Machine models. This indicates that with a dataset that is more difficult to predict outcomes with, the models perform on a similar level. As another robustness check, an alternative package for Random Forests is used. In line with Boehmke & Greenwell (2020), the ranger package is applied. The results indicate that the Random Forest models have rmse scores of between 3 and 4, with that of the second being the lowest.
 
 # Conclusion 
 
+In conclusion, this paper reveals that Support Vector Machine model slightly outperforms the Random Forest model when predicting the presence of heart disease amongst patients. It is important to note that both models, base as well as fine-tuned of each algorithmn, provides an acceptable classification accuracy of above 70%. After conducting robustness checks, it is established that the outcomes of the models are reliable. 
+
+\newpage
 # Reference List 
 
+Boehmke, B. & Greenwell, B. 2020. *Hands-On Machine Learning with R*. CRC Press
+
+\newpage
 # Appendix 
 
+## Classification Accuracies
+
+### RFM 1:
 ```{r}
-# response distribution -> even enough, can use simple random sampling
-table(heart_d$heart_disease_present) %>% prop.table()
+# Accuracy of the model
+Classification_Accuracy = sum(diag(CFM)/sum(CFM))
+Classification_Accuracy
+```
+
+### RFM 2:
+```{r}
+# Accuracy of the model
+Classification_Accuracy1 = sum(diag(CFM1)/sum(CFM1))
+Classification_Accuracy1
+```
+
+### RFM 3
+
+```{r}
+# Accuracy of the model
+Classification_Accuracy2 = sum(diag(CFM2)/sum(CFM2))
+Classification_Accuracy2
+```
+
+### SVM 1:
+```{r}
+# Accuracy of the model
+Classification_AccuracyS = sum(diag(confusionM2$table)/sum(confusionM2$table))
+Classification_AccuracyS
+```
+
+### SVM 2:
+```{r}
+# Accuracy of the model
+Classification_AccuracyS2 = sum(diag(confusionMatrix$table)/sum(confusionMatrix$table))
+Classification_AccuracyS2
+```
+
+## RFM 1, 2 & 3: Ranger Results
+```{r}
+# number of features
+n_features <- length(setdiff(names(train_1), "heart_disease_present"))
+
+# train a default random forest model
+rf1 <- ranger(
+    heart_disease_present ~ ., 
+    data = train_1,
+    mtry = floor(n_features / 3),
+    respect.unordered.factors = "order",
+    #seed = 123
+)
+
+# get OOB RMSE
+(default_rmse <- sqrt(rf1$prediction.error))
+```
+
+```{r}
+# number of features
+n_features <- length(setdiff(names(train_1), "heart_disease_present"))
+
+# train a default random forest model
+rf2 <- ranger(
+    heart_disease_present ~ ., 
+    data = train_1,
+    mtry = 3,
+    respect.unordered.factors = "order",
+    #seed = 123
+)
+
+# get OOB RMSE
+(default_rmse <- sqrt(rf2$prediction.error))
+```
+
+```{r}
+# number of features
+n_features <- length(setdiff(names(train_2), "heart_disease_present"))
+
+# train a default random forest model
+rf2 <- ranger(
+    heart_disease_present ~ ., 
+    data = train_2,
+    mtry = 3,
+    respect.unordered.factors = "order",
+    #seed = 123
+)
+
+# get OOB RMSE
+(default_rmse <- sqrt(rf2$prediction.error))
 ```
